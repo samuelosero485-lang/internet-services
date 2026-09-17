@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 30px;
+    background: #f4f4f4;
+  }
+
+  h1 { color: #e63946; }
+
+  .blue   { color: blue; }
+  .green  { color: #25D366; }
+  .orange { color: orange; }
+  .gray   { color: rgb(120, 120, 120); }
+
+  .gradient-text {
+    background: linear-gradient(90deg, #667eea, #764ba2, #e63946);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .highlight {
+    background: yellow;
+    color: black;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+
+  <h1>Color Examples</h1>
+
+  <p class="blue">This is blue text (color name)</p>
+  <p class="green">This is green text (HEX code)</p>
+  <p class="orange">This is orange text (color name)</p>
+  <p class="gray">This is gray text (RGB)</p>
+
+  <p>
+    This is normal text with a 
+    <span class="highlight">yellow highlight</span> 
+    inside.
+  </p>
+
+  <p class="gradient-text">This is gradient text!</p>
+
+</body>
+</html>

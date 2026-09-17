@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samitech Cyber Café & Business Center</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ========== RESET & GLOBAL ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    }
+
+    :root {
+      --primary: #1e3c72;
+      --primary-light: #2a5298;
+      --accent: #00b4db;
+      --success: #00a86b;
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --text-dark: #1a2639;
+      --text-mid: #3e4c5e;
+      --shadow: 0 15px 30px -12px rgba(0, 20, 40, 0.15);
+    }
+
+    body {
+      /* 🌄 Background image with dark overlay for readability */
+      background: 
+        linear-gradient(135deg, rgba(30, 60, 114, 0.88) 0%, rgba(0, 180, 219, 0.75) 100%),
+        url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop') 
+        no-repeat center center fixed;
+      background-size: cover;
+      color: var(--text-dark);
+      padding: 2rem 1.5rem;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Subtle texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========== HEADER ========== */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(16px);
+      padding: 2.5rem 2rem;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    .header h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #e0f0ff, #90e0ef);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.5px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .header p {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 750px;
+      margin: 0 auto 1rem;
+      border-bottom: 3px solid rgba(255, 255, 255, 0.25);
+      padding-bottom: 1.4rem;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 0.4rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      animation: pulse 2.5s infinite;
+      backdrop-filter: blur(8px);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* ========== GRID ========== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 2rem 1.8rem;
+    }
+
+    /* ========== CARD ========== */
+    .service-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.6s ease forwards;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .service-card:nth-child(1) { animation-delay: 0.05s; }
+    .service-card:nth-child(2) { animation-delay: 0.1s; }
+    .service-card:nth-child(3) { animation-delay: 0.15s; }
+    .service-card:nth-child(4) { animation-delay: 0.2s; }
+    .service-card:nth-child(5) { animation-delay: 0.25s; }
+    .service-card:nth-child(6) { animation-delay: 0.3s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(0, 180, 219, 0.4);
+    }
+
+    /* ========== PHOTO ========== */
+    .card-photo {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+      background: #d9e2ef;
+      border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+      transition: transform 0.5s ease;
+    }
+
+    .service-card:hover .card-photo {
+      transform: scale(1.04);
+    }
+
+    .photo-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(30, 60, 114, 0.25), transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ========== CONTENT ========== */
+    .card-content {
+      padding: 1.6rem 1.5rem 1.9rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-content h2 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--primary);
+    }
+
+    .card-content h2 i {
+      color: var(--primary-light);
+      font-size: 1.7rem;
+      width: 1.8rem;
+      text-align: center;
+    }
+
+    .card-content p {
+      color: var(--text-mid);
+      margin-bottom: 1.2rem;
+      flex: 1;
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .service-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.93rem;
+      color: #2a4059;
+      padding: 0.25rem 0;
+    }
+
+    .service-features li i {
+      color: var(--success);
+      font-size: 0.95rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* ========== BUTTON ========== */
+    .btn {
+      background: rgba(238, 244, 255, 0.8);
+      backdrop-filter: blur(4px);
+      border: 1.5px solid var(--primary-light);
+      color: var(--primary);
+      padding: 0.75rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-top: auto;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 8px rgba(0, 40, 100, 0.05);
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .btn i {
+      font-size: 0.9rem;
+      transition: transform 0.25s ease;
+    }
+
+    .service-card:hover .btn {
+      background: var(--primary-light);
+      color: white;
+      border-color: var(--primary-light);
+      box-shadow: 0 8px 18px rgba(42, 82, 152, 0.4);
+    }
+
+    .service-card:hover .btn i {
+      transform: translateX(4px);
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Cyber special accent */
+    .service-card.cyber-special .card-content h2 i {
+      color: #0b4f6c;
+    }
+
+    .service-card.cyber-special .btn {
+      border-color: #0b4f6c;
+      color: #0b4f6c;
+      background: rgba(231, 240, 248, 0.8);
+    }
+
+    .service-card.cyber-special:hover .btn {
+      background: #0b4f6c;
+      color: white;
+    }
+
+    /* ========== TOAST ========== */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      font-weight: 600;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      max-width: 90vw;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast i {
+      color: #6effb0;
+      font-size: 1.2rem;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer-note {
+      margin-top: 3.8rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1rem;
+      border-top: 2px dashed rgba(255, 255, 255, 0.25);
+      padding-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 2rem;
+    }
+
+    .footer-note span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .footer-note i {
+      color: #90e0ef;
+    }
+
+    /* ========== SCROLL REVEAL (JS adds) ========== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 500px) {
+      body { padding: 1.5rem 1rem; }
+      .card-content h2 { font-size: 1.35rem; }
+      .card-photo { height: 160px; }
+      .toast { padding: 0.85rem 1.4rem; font-size: 0.9rem; }
+      .header { padding: 1.8rem 1.2rem; }
+      .header h1 { font-size: 1.8rem; }
+      .header p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>
+      <i class="fas fa-print" style="background: none; -webkit-text-fill-color: #90e0ef; margin-right: 12px;"></i>
+      Samitech Cyber Café & Business Hub
+    </h1>
+    <p>
+      <img src="P2.jpg" alt="Samitech" style="width: 120px; height: auto; border-radius: 16px; margin-bottom: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+    </p>
+    <div class="badge">
+      <i class="fas fa-check-circle" style="color: #6effb0;"></i>
+      WELCOME ALL TO MY SERVICES ANY TIME ANY DAY EVERY WEEK
+    </div>
+  </div>
+
+  <!-- SERVICES GRID -->
+  <div class="services-grid" id="servicesGrid">
+
+    <!-- 1. PHOTOCOPY -->
+    <div class="service-card reveal">
+      <div class="photo-wrap">
+        <img class="card-photo" src="p9.jpg" alt="Photocopy service" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-copy"></i> Photocopy</h2>
+        <p>High-speed black & white and colour photocopying. Bulk jobs, ID cards, certificates, and documents with crisp output.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> A4 / A3 / Legal sizes</li>
+          <li><i class="fas fa-check-circle"></i> Single & double sided</li>
+          <li><i class="fas fa-check-circle"></i> 50+ copies per minute</li>
+        </ul>
+        <button class="btn" data-service="Photocopy"><i class="fas fa-arrow-right"></i> Order Copies</button>
+      </div>
+    </div>
+
+    <!-- 2. PRINTING -->
+    <div class="service-card reveal">
+      <div class="photo-wrap">
+        <img class="card-photo" src="p10.jpg" alt="Printing service" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-print"></i> Printing</h2>
+        <p>Professional colour and monochrome printing for documents, photos, banners, and business materials.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> Laser & inkjet quality</li>
+          <li><i class="fas fa-check-circle"></i> Photo & banner printing</li>
+          <li><i class="fas fa-check-circle"></i> Same-day bulk printing</li>
+        </ul>
+        <button class="btn" data-service="Printing"><i class="fas fa-arrow-right"></i> Print Now</button>
+      </div>
+    </div>
+
+    <!-- 3. BINDING -->
+    <div class="service-card reveal">
+      <div class="photo-wrap">
+        <img class="card-photo" src="p11.png" alt="Binding service" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-book"></i> Binding</h2>
+        <p>Professional document binding — spiral, comb, perfect, and thermal binding for reports, theses, and books.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> Spiral & comb binding</li>
+          <li><i class="fas fa-check-circle"></i> Thermal & perfect binding</li>
+          <li><i class="fas fa-check-circle"></i> Custom cover options</li>
+        </ul>
+        <button class="btn" data-service="Binding"><i class="fas fa-arrow-right"></i> Bind Documents</button>
+      </div>
+    </div>
+
+    <!-- 4. LAMINATION -->
+    <div class="service-card reveal">
+      <div class="photo-wrap">
+        <img class="card-photo" src="p12.jpg" alt="Lamination service" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-id-card"></i> Lamination</h2>
+        <p>Protect your important documents, ID cards, certificates, and photos with premium lamination.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> Glossy & matte finish</li>
+          <li><i class="fas fa-check-circle"></i> ID card & certificate size</li>
+          <li><i class="fas fa-check-circle"></i> Waterproof & durable</li>
+        </ul>
+        <button class="btn" data-service="Lamination"><i class="fas fa-arrow-right"></i> Laminate Now</button>
+      </div>
+    </div>
+
+    <!-- 5. DESIGNING -->
+    <div class="service-card reveal">
+      <div class="photo-wrap">
+        <img class="card-photo" src="p13.jpg" alt="Designing service" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-paint-brush"></i> Designing</h2>
+        <p>Creative graphic design for logos, flyers, business cards, posters, and all your branding needs.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> Logo & brand identity</li>
+          <li><i class="fas fa-check-circle"></i> Flyers, posters & banners</li>
+          <li><i class="fas fa-check-circle"></i> Business cards & letterheads</li>
+        </ul>
+        <button class="btn" data-service="Designing"><i class="fas fa-arrow-right"></i> Start Designing</button>
+      </div>
+    </div>
+
+    <!-- 6. ALL CYBER CASES -->
+    <div class="service-card cyber-special reveal">
+      <div class="photo-wrap">
+        <img class="card-photo" src="P1.png" alt="All cyber cases" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-globe"></i> All Cyber Cases</h2>
+        <p>Complete cyber café services — online applications, KRA, NTSA, eCitizen, email, typing, scanning, and more.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> eCitizen & KRA services</li>
+          <li><i class="fas fa-check-circle"></i> NTSA & HELB applications</li>
+          <li><i class="fas fa-check-circle"></i> Typing, scanning & email</li>
+        </ul>
+        <button class="btn" data-service="All Cyber Cases"><i class="fas fa-arrow-right"></i> Get Cyber Help</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-note">
+    <span><i class="fas fa-clock"></i>24/7</span>
+    <span><i class="fas fa-phone-alt"></i> +254 113459687 / +254794164251</span>
+    <span><i class="fas fa-map-marker-alt"></i> matungu, makale Town Center, Kenya</span>
+    <span><i class="fas fa-check-circle" style="color: #6effb0;"></i> All services available</span>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i>
+  <span id="toastMsg">Service selected!</span>
+</div>
+
+<script>
+  /* ========== TOAST FUNCTION ========== */
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toastMsg');
+  let toastTimer;
+
+  function showToast(serviceName) {
+    clearTimeout(toastTimer);
+    toastMsg.textContent = `✓ ${serviceName} — We'll be with you shortly!`;
+    toast.classList.add('show');
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2800);
+  }
+
+  /* ========== BUTTON CLICK HANDLERS ========== */
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const service = this.getAttribute('data-service') || 'Service';
+      showToast(service);
+      this.style.transform = 'scale(0.95)';
+      setTimeout(() => { this.style.transform = ''; }, 150);
+    });
+  });
+
+  /* ========== SCROLL REVEAL ========== */
+  const revealElements = document.querySelectorAll('.reveal');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  revealElements.forEach(el => observer.observe(el));
+
+  setTimeout(() => {
+    revealElements.forEach(el => {
+      if (!el.classList.contains('visible')) {
+        el.classList.add('visible');
+      }
+    });
+  }, 1000);
+
+  /* ========== CARD HOVER TILT ========== */
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -2;
+      const rotateY = ((x - centerX) / centerX) * 2;
+      card.style.transform = `translateY(-8px) perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  console.log('%c🖨️ Cyber Café & Business Hub', 'font-size: 20px; font-weight: bold; color: #1e3c72;');
+  console.log('%cAll services loaded with photos ✓', 'font-size: 14px; color: #00a86b;');
+</script>
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Need help? · Password reset</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #f4f8f0 0%, #dce8d4 100%);
+      padding: 1.5rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 2.5rem;
+      box-shadow: 0 20px 40px rgba(50, 70, 30, 0.15), 0 8px 20px rgba(0, 0, 0, 0.05);
+      padding: 2.5rem 2.8rem;
+      max-width: 540px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: all 0.2s;
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .icon-badge {
+      background: #c44536;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      box-shadow: 0 8px 18px rgba(196, 69, 54, 0.25);
+    }
+
+    .icon-badge i {
+      font-size: 2.4rem;
+      color: white;
+    }
+
+    .card-header h2 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #1e3a1a;
+      letter-spacing: -0.3px;
+    }
+
+    .card-header .sub-head {
+      color: #4d6b45;
+      font-size: 1rem;
+      margin-top: 0.2rem;
+      font-weight: 400;
+    }
+
+    .card-header .sub-head i {
+      margin-right: 4px;
+      color: #b35f4f;
+    }
+
+    .help-block {
+      background: #f9fbf7;
+      border-radius: 1.8rem;
+      padding: 1.6rem 1.8rem;
+      margin: 1.8rem 0 1.5rem 0;
+      border: 1px solid #e2ede0;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .help-block .issue-title {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #2b4825;
+      margin-bottom: 1rem;
+    }
+
+    .help-block .issue-title i {
+      color: #c44536;
+      font-size: 1.2rem;
+    }
+
+    .help-option {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 0.8rem 0.8rem 1.2rem;
+      background: white;
+      border-radius: 50px;
+      margin-bottom: 0.8rem;
+      border: 1px solid #dae6d4;
+      transition: 0.15s;
+      cursor: default;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .help-option:last-child {
+      margin-bottom: 0;
+    }
+
+    .help-option .icon-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #edf5ea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2d5a22;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .help-option .content {
+      flex: 1;
+    }
+
+    .help-option .content .title {
+      font-weight: 600;
+      color: #1f3b1b;
+      font-size: 0.98rem;
+    }
+
+    .help-option .content .desc {
+      font-size: 0.85rem;
+      color: #5f7a57;
+    }
+
+    .help-option .action-btn {
+      background: transparent;
+      border: 1.5px solid #b3cca9;
+      border-radius: 40px;
+      padding: 0.35rem 1.1rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #2d5a22;
+      cursor: pointer;
+      transition: 0.15s;
+      white-space: nowrap;
+      background: white;
+    }
+
+    .help-option .action-btn:hover {
+      background: #2d5a22;
+      border-color: #2d5a22;
+      color: white;
+      box-shadow: 0 4px 10px rgba(45, 90, 34, 0.2);
+    }
+
+    .help-option .action-btn:active {
+      transform: scale(0.96);
+    }
+
+    .extra-resources {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: center;
+      margin: 1.8rem 0 0.6rem;
+    }
+
+    .extra-resources a {
+      background: #edf5ea;
+      padding: 0.5rem 1.4rem;
+      border-radius: 60px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #2b4825;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid transparent;
+      transition: 0.15s;
+    }
+
+    .extra-resources a i {
+      color: #3a6b2b;
+    }
+
+    .extra-resources a:hover {
+      background: #dcebd6;
+      border-color: #b3cca9;
+      transform: translateY(-2px);
+    }
+
+    .footer-action {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      border-top: 1px solid #dce8d4;
+      padding-top: 1.6rem;
+    }
+
+    .btn-back {
+      background: #eef5eb;
+      border: 1.5px solid #bccfb3;
+      padding: 0.75rem 2.4rem;
+      border-radius: 60px;
+      font-weight: 600;
+      color: #1f3b1b;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      transition: 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .btn-back i {
+      color: #3a6b2b;
+    }
+
+    .btn-back:hover {
+      background: #2d5a22;
+      border-color: #2d5a22;
+      color: white;
+    }
+
+    .btn-back:hover i {
+      color: white;
+    }
+
+    /* toast notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1e3a1a;
+      color: white;
+      padding: 0.9rem 2.2rem;
+      border-radius: 60px;
+      font-weight: 500;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: 0.3s ease;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      backdrop-filter: blur(4px);
+      background: rgba(26, 51, 20, 0.95);
+      font-size: 1rem;
+      border: 1px solid #4b7840;
+      white-space: nowrap;
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast i {
+      font-size: 1.2rem;
+      color: #b5e0a5;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 2rem 1.5rem;
+      }
+      .help-option {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.9rem 1rem;
+      }
+      .help-option .action-btn {
+        width: 100%;
+        text-align: center;
+      }
+      .extra-resources a {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MAIN CARD : NEED HELP AFTER RESET FAIL -->
+  <div class="card" role="main" aria-labelledby="help-title">
+    <div class="card-header">
+      <div class="icon-badge">
+        <i class="fas fa-circle-exclamation"></i>
+      </div>
+      <h2 id="help-title">Reset failed?</h2>
+      <div class="sub-head">
+        <i class="fas fa-arrow-right" style="font-size:0.8rem;"></i> We're here to help
+      </div>
+    </div>
+
+    <!-- help block -->
+    <div class="help-block">
+      <div class="issue-title">
+        <i class="fas fa-triangle-exclamation"></i>
+        <span>Common reasons & solutions</span>
+      </div>
+
+      <!-- option 1 -->
+      <div class="help-option" id="optionEmail">
+        <div class="icon-circle"><i class="fas fa-envelope"></i></div>
+        <div class="content">
+          <div class="title">No email received</div>
+          <div class="desc">Check spam or request a new link</div>
+        </div>
+        <button class="action-btn" data-action="resend">Resend link</button>
+      </div>
+
+      <!-- option 2 -->
+      <div class="help-option" id="optionSupport">
+        <div class="icon-circle"><i class="fas fa-headset"></i></div>
+        <div class="content">
+          <div class="title">Contact support</div>
+          <div class="desc">Talk to a real person</div>
+        </div>
+        <button class="action-btn" data-action="support">Live chat</button>
+      </div>
+
+      <!-- option 3 -->
+      <div class="help-option" id="optionRecovery">
+        <div class="icon-circle"><i class="fas fa-shield-alt"></i></div>
+        <div class="content">
+          <div class="title">Account recovery</div>
+          <div class="desc">Verify identity with security questions</div>
+        </div>
+        <button class="action-btn" data-action="recovery">Recover</button>
+      </div>
+    </div>
+
+    <!-- extra resources -->
+    <div class="extra-resources">
+      <a href="#" id="faqLink"><i class="fas fa-book"></i> FAQ</a>
+      <a href="#" id="statusLink"><i class="fas fa-signal"></i> Service status</a>
+      <a href="#" id="emailSupportLink"><i class="fas fa-envelope-open-text"></i> support@wellness.com</a>
+    </div>
+
+    <!-- back to login -->
+    <div class="footer-action">
+      <button>
+      <a href="log in page.html">back to login</a>
+      </button>
+      </a>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMessage">Action completed</span>
+  </div>
+f
+  <script>
+    (function() {
+      'use strict';
+
+      // DOM refs
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMessage');
+
+      // helper: show toast
+      function showToast(msg, icon = 'fa-check-circle') {
+        toastMsg.textContent = msg;
+        toast.querySelector('i').className = `fas ${icon}`;
+        toast.classList.add('show');
+        clearTimeout(window.toastTimer);
+        window.toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3200);
+      }
+
+      // ----- handle action buttons inside help options -----
+      const actionBtns = document.querySelectorAll('.help-option .action-btn');
+      actionBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();  // prevent any parent interference
+          const action = this.getAttribute('data-action');
+          const parentOption = this.closest('.help-option');
+          const titleEl = parentOption?.querySelector('.title');
+          const title = titleEl ? titleEl.textContent.trim() : '';
+
+          // provide feedback based on action
+          switch(action) {
+            case 'resend':
+              showToast('📨 New reset link sent to your email', 'fa-envelope');
+              // optionally disable button for a moment
+              this.disabled = true;
+              this.textContent = 'Sending...';
+              setTimeout(() => {
+                this.disabled = false;
+                this.textContent = 'Resend link';
+              }, 2000);
+              break;
+            case 'support':
+              showToast('💬 Connecting to live support...', 'fa-headset');
+              break;
+            case 'recovery':
+              showToast('🔐 Recovery options sent to your phone', 'fa-shield-alt');
+              break;
+            default:
+              showToast(`✅ ${title || 'Action'} completed`, 'fa-check-circle');
+          }
+        });
+      });
+
+      // ----- extra resources (faq, status, email) -----
+      document.getElementById('faqLink')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        showToast('📖 Redirecting to FAQ page', 'fa-book');
+      });
+
+      document.getElementById('statusLink')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        showToast('📡 All systems operational', 'fa-signal');
+      });
+
+      document.getElementById('emailSupportLink')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        showToast('✉️ Copy: support@wellness.com', 'fa-envelope-open-text');
+        // bonus: copy to clipboard
+        navigator.clipboard?.writeText('support@wellness.com').catch(() => {});
+      });
+
+      // ----- back to login (demo) -----
+      document.getElementById('backLoginBtn')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        showToast('🔐 Redirecting to login page', 'fa-arrow-left');
+        // simulate navigation
+        setTimeout(() => {
+          // you could change location here: window.location.href = '/login';
+          // but we just show a message
+        }, 500);
+      });
+
+      // ----- additional: click on the whole help-option (but not button) to show info
+      document.querySelectorAll('.help-option').forEach(option => {
+        option.addEventListener('click', function(e) {
+          // if click is directly on the button, we already handled it
+          if (e.target.closest('.action-btn')) return;
+          const title = this.querySelector('.title')?.textContent || 'Option';
+          showToast(`ℹ️ ${title} — click the button to proceed`, 'fa-info-circle');
+        });
+      });
+
+      // ----- demo: show a welcome toast after load (optional) -----
+      window.addEventListener('DOMContentLoaded', function() {
+        // small hint that this is the "need help after reset fail" page
+        setTimeout(() => {
+          showToast('🆘 Need help? Choose an option below', 'fa-circle-exclamation');
+        }, 400);
+      });
+
+    })();
+  </script>
+</body>
+</html>

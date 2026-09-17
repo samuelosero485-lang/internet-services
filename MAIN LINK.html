@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMITECH CYBER - Page Links</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 48px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            color: #f8fafc;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 36px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 24px;
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 22px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #e2e8f0;
+        }
+
+        .link-card:hover {
+            background: rgba(79, 70, 229, 0.1);
+            border-color: #4f46e5;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
+        }
+
+        .link-card .icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .link-card:hover .icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .link-card .info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .link-card .info .name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #f1f5f9;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .link-card .info .path {
+            font-size: 0.78rem;
+            color: #64748b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px;
+        }
+
+        /* Icon colors */
+        .icon-blue { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .icon-green { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .icon-purple { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+        .icon-orange { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+        .icon-red { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .icon-cyan { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
+        .icon-pink { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
+        .icon-indigo { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
+
+        .footer {
+            text-align: center;
+            margin-top: 36px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 28px 20px;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+            .link-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔗 SAMITECH CYBER</h1>
+    <p class="subtitle">All pages · Click to open</p>
+
+    <div class="link-grid">
+
+        <a href="BBBB.html" class="link-card">
+            <div class="icon icon-indigo">📬</div>
+            <div class="info">
+                <div class="name">Contact Us (BBBB)</div>
+                <div class="path">BBBB.html</div>
+            </div>
+        </a>
+
+        <a href="contuct.html" class="link-card">
+            <div class="icon icon-green">📞</div>
+            <div class="info">
+                <div class="name">Contact Us (contuct)</div>
+                <div class="path">contuct.html</div>
+            </div>
+        </a>
+
+        <a href="cyb.html" class="link-card">
+            <div class="icon icon-blue">🛡️</div>
+            <div class="info">
+                <div class="name">SAMITECH CYBER Home</div>
+                <div class="path">cyb.html</div>
+            </div>
+        </a>
+
+        <a href="face.html" class="link-card">
+            <div class="icon icon-pink">📱</div>
+            <div class="info">
+                <div class="name">Social Media Icons</div>
+                <div class="path">face.html</div>
+            </div>
+        </a>
+
+        <a href="FORGOT PASSWORD.html" class="link-card">
+            <div class="icon icon-orange">🔑</div>
+            <div class="info">
+                <div class="name">Forgot Password</div>
+                <div class="path">FORGOT PASSWORD.html</div>
+            </div>
+        </a>
+
+        <a href="GGG.html" class="link-card">
+            <div class="icon icon-purple">🎨</div>
+            <div class="info">
+                <div class="name">Color Examples</div>
+                <div class="path">GGG.html</div>
+            </div>
+        </a>
+
+        <a href="help.html" class="link-card">
+            <div class="icon icon-red">🆘</div>
+            <div class="info">
+                <div class="name">Need Help?</div>
+                <div class="path">help.html</div>
+            </div>
+        </a>
+
+        <a href="limunation.html" class="link-card">
+            <div class="icon icon-cyan">📶</div>
+            <div class="info">
+                <div class="name">WiFi Installation (limunation)</div>
+                <div class="path">limunation.html</div>
+            </div>
+        </a>
+
+        <a href="log in page.html" class="link-card">
+            <div class="icon icon-blue">🔐</div>
+            <div class="info">
+                <div class="name">Login Page</div>
+                <div class="path">log in page.html</div>
+            </div>
+        </a>
+
+        <a href="morquee 2.html" class="link-card">
+            <div class="icon icon-orange">📢</div>
+            <div class="info">
+                <div class="name">Marquee Announcement</div>
+                <div class="path">morquee 2.html</div>
+            </div>
+        </a>
+
+        <a href="print.html" class="link-card">
+            <div class="icon icon-green">🖨️</div>
+            <div class="info">
+                <div class="name">Cyber Café & Business Hub</div>
+                <div class="path">print.html</div>
+            </div>
+        </a>
+
+        <a href="SAMITECT SERVACES.html" class="link-card">
+            <div class="icon icon-indigo">🏢</div>
+            <div class="info">
+                <div class="name">SAMITECH Services</div>
+                <div class="path">SAMITECT SERVACES.html</div>
+            </div>
+        </a>
+
+        <a href="wifi.html" class="link-card">
+            <div class="icon icon-cyan">📡</div>
+            <div class="info">
+                <div class="name">WiFi Installation Services</div>
+                <div class="path">wifi.html</div>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="footer">
+        &copy; 2026 SAMITECH CYBER · All rights reserved
+    </div>
+</div>
+
+</body>
+</html>

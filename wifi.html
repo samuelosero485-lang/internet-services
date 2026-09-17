@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WiFi Installation Services | Fast · Secure · Reliable</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ========== RESET & GLOBAL ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    :root {
+      --primary: #0a2e5c;
+      --primary-light: #1565c0;
+      --accent: #00d4ff;
+      --success: #00c853;
+      --bg: #f0f4f9;
+      --card-bg: #ffffff;
+      --text-dark: #0d1b2a;
+      --text-mid: #3a506b;
+      --shadow: 0 15px 30px -12px rgba(0, 30, 60, 0.18);
+    }
+
+    body {
+      /* 🌄 Background image with dark blue overlay for readability */
+      background: 
+        linear-gradient(135deg, rgba(10, 46, 92, 0.88) 0%, rgba(21, 101, 192, 0.78) 100%),
+        url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=2070&auto=format&fit=crop') 
+        no-repeat center center fixed;
+      background-size: cover;
+      color: var(--text-dark);
+      padding: 2rem 1.5rem;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Subtle texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========== HEADER ========== */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(16px);
+      padding: 2.5rem 2rem;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    .header h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #e0f0ff, #90e0ef);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.5px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .header p {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 750px;
+      margin: 0 auto 1rem;
+      border-bottom: 3px solid rgba(255, 255, 255, 0.25);
+      padding-bottom: 1.4rem;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 0.4rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      animation: pulse 2.5s infinite;
+      backdrop-filter: blur(8px);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    /* ========== GRID ========== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 2rem 1.8rem;
+    }
+
+    /* ========== CARD ========== */
+    .service-card {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.6s ease forwards;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .service-card:nth-child(1) { animation-delay: 0.05s; }
+    .service-card:nth-child(2) { animation-delay: 0.1s; }
+    .service-card:nth-child(3) { animation-delay: 0.15s; }
+    .service-card:nth-child(4) { animation-delay: 0.2s; }
+    .service-card:nth-child(5) { animation-delay: 0.25s; }
+    .service-card:nth-child(6) { animation-delay: 0.3s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(0, 212, 255, 0.4);
+    }
+
+    /* ========== PHOTO ========== */
+    .photo-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-photo {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+      background: #d9e2ef;
+      border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+      transition: transform 0.5s ease;
+    }
+
+    .service-card:hover .card-photo {
+      transform: scale(1.05);
+    }
+
+    .photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10, 46, 92, 0.25), transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ========== CONTENT ========== */
+    .card-content {
+      padding: 1.6rem 1.5rem 1.9rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-content h2 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--primary);
+    }
+
+    .card-content h2 i {
+      color: var(--primary-light);
+      font-size: 1.7rem;
+      width: 1.8rem;
+      text-align: center;
+    }
+
+    .card-content p {
+      color: var(--text-mid);
+      margin-bottom: 1.2rem;
+      flex: 1;
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .service-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.93rem;
+      color: #2a4059;
+      padding: 0.25rem 0;
+    }
+
+    .service-features li i {
+      color: var(--success);
+      font-size: 0.95rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* ========== BUTTON ========== */
+    .btn {
+      background: rgba(227, 242, 253, 0.8);
+      backdrop-filter: blur(4px);
+      border: 1.5px solid var(--primary-light);
+      color: var(--primary);
+      padding: 0.75rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-top: auto;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 8px rgba(0, 40, 100, 0.05);
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .btn i {
+      font-size: 0.9rem;
+      transition: transform 0.25s ease;
+    }
+
+    .service-card:hover .btn {
+      background: var(--primary-light);
+      color: white;
+      border-color: var(--primary-light);
+      box-shadow: 0 8px 18px rgba(21, 101, 192, 0.4);
+    }
+
+    .service-card:hover .btn i {
+      transform: translateX(4px);
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    /* ========== TOAST ========== */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      font-weight: 600;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      max-width: 90vw;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast i {
+      color: #6effb0;
+      font-size: 1.2rem;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer-note {
+      margin-top: 3.8rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1rem;
+      border-top: 2px dashed rgba(255, 255, 255, 0.25);
+      padding-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 2rem;
+    }
+
+    .footer-note span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .footer-note i {
+      color: #90e0ef;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 500px) {
+      body { padding: 1.5rem 1rem; }
+      .card-content h2 { font-size: 1.35rem; }
+      .card-photo { height: 160px; }
+      .toast { padding: 0.85rem 1.4rem; font-size: 0.9rem; }
+      .header { padding: 1.8rem 1.2rem; }
+      .header h1 { font-size: 1.8rem; }
+      .header p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>
+      <i class="fas fa-wifi" style="background: none; -webkit-text-fill-color: #90e0ef; margin-right: 12px;"></i>
+      WiFi Installation Services
+    </h1>
+    <p>
+      <img src="P14.png" alt="WiFi" style="width: 120px; height: auto; border-radius: 16px; margin-bottom: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+    </p>
+    <p>Home · Office · Enterprise · Outdoor · Mesh · Maintenance</p>
+    <div class="badge">
+      <i class="fas fa-check-circle" style="color: #6effb0;"></i>
+      Fast · Secure · Reliable Connection
+    </div>
+  </div>
+
+  <!-- SERVICES GRID -->
+  <div class="services-grid">
+
+    <!-- 1. HOME WIFI INSTALLATION -->
+    <div class="service-card">
+      <div class="photo-wrap">
+        <img class="card-photo" src="p15.png" alt="Home WiFi Installation" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-home"></i> Home WiFi</h2>
+        <p>Complete home WiFi setup with router configuration, optimal placement, and full coverage in every room.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> Router setup & configuration</li>
+          <li><i class="fas fa-check-circle"></i> Full house coverage</li>
+          <li><i class="fas fa-check-circle"></i> Password & security setup</li>
+        </ul>
+        <button class="btn" data-service="Home WiFi Installation"><i class="fas fa-arrow-right"></i> Install Home WiFi</button>
+      </div>
+    </div>
+
+    <!-- 2. OFFICE WIFI INSTALLATION -->
+    <div class="service-card">
+      <div class="photo-wrap">
+        <img class="card-photo" src="p16.jpg" alt="Office WiFi Installation" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-building"></i> Office WiFi</h2>
+        <p>Business-grade WiFi networks for offices, shops, and workplaces with multiple access points and guest networks.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> Multi-AP deployment</li>
+          <li><i class="fas fa-check-circle"></i> Guest & staff networks</li>
+          <li><i class="fas fa-check-circle"></i> Bandwidth management</li>
+        </ul>
+        <button class="btn" data-service="Office WiFi Installation"><i class="fas fa-arrow-right"></i> Install Office WiFi</button>
+      </div>
+    </div>
+
+    <!-- 3. ENTERPRISE WIFI -->
+    <div class="service-card">
+      <div class="photo-wrap">
+        <img class="card-photo" src="p17.jpg" alt="Enterprise WiFi Installation" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-server"></i> Enterprise WiFi</h2>
+        <p>Large-scale WiFi solutions for hotels, schools, hospitals, and campuses with seamless roaming and high density.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> High-density coverage</li>
+          <li><i class="fas fa-check-circle"></i> Seamless roaming</li>
+          <li><i class="fas fa-check-circle"></i> Central management</li>
+        </ul>
+        <button class="btn" data-service="Enterprise WiFi"><i class="fas fa-arrow-right"></i> Get Enterprise Setup</button>
+      </div>
+    </div>
+
+    <!-- 4. OUTDOOR WIFI -->
+    <div class="service-card">
+      <div class="photo-wrap">
+        <img class="card-photo" src="p18.jpg" alt="Outdoor WiFi Installation" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-satellite-dish"></i> Outdoor WiFi</h2>
+        <p>Weatherproof outdoor WiFi for gardens, compounds, farms, and events with long-range antennas.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> Long-range antennas</li>
+          <li><i class="fas fa-check-circle"></i> Weatherproof equipment</li>
+          <li><i class="fas fa-check-circle"></i> Point-to-point links</li>
+        </ul>
+        <button class="btn" data-service="Outdoor WiFi"><i class="fas fa-arrow-right"></i> Install Outdoor WiFi</button>
+      </div>
+    </div>
+
+    <!-- 5. MESH WIFI SYSTEM -->
+    <div class="service-card">
+      <div class="photo-wrap">
+        <img class="card-photo" src="p20.webp" alt="Mesh WiFi System" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-project-diagram"></i> Mesh WiFi System</h2>
+        <p>Whole-home mesh WiFi system that eliminates dead zones and provides seamless coverage in large spaces.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> No dead zones</li>
+          <li><i class="fas fa-check-circle"></i> Seamless handover</li>
+          <li><i class="fas fa-check-circle"></i> Easy scalability</li>
+        </ul>
+        <button class="btn" data-service="Mesh WiFi System"><i class="fas fa-arrow-right"></i> Setup Mesh WiFi</button>
+      </div>
+    </div>
+
+    <!-- 6. WIFI MAINTENANCE & REPAIR -->
+    <div class="service-card">
+      <div class="photo-wrap">
+        <img class="card-photo" src="p21.webp" alt="WiFi Maintenance & Repair" loading="lazy">
+      </div>
+      <div class="card-content">
+        <h2><i class="fas fa-tools"></i> WiFi Maintenance</h2>
+        <p>Fast WiFi troubleshooting, repair, speed optimization, and regular maintenance for existing networks.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check-circle"></i> Speed optimization</li>
+          <li><i class="fas fa-check-circle"></i> Signal troubleshooting</li>
+          <li><i class="fas fa-check-circle"></i> Router firmware updates</li>
+        </ul>
+        <button class="btn" data-service="WiFi Maintenance & Repair"><i class="fas fa-arrow-right"></i> Book Maintenance</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-note">
+    <span><i class="fas fa-clock"></i>24/7</span>
+    <span><i class="fas fa-phone-alt"></i> +254 113459687</span>
+    <span><i class="fas fa-envelope"></i>SAMITECH.COM</span>
+    <span><i class="fas fa-check-circle" style="color: #6effb0;"></i> Free Site Survey</span>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i>
+  <span id="toastMsg">Service selected!</span>
+</div>
+
+<script>
+  /* ========== TOAST ========== */
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toastMsg');
+  let toastTimer;
+
+  function showToast(serviceName) {
+    clearTimeout(toastTimer);
+    toastMsg.textContent = `✓ ${serviceName} — Our team will contact you!`;
+    toast.classList.add('show');
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+
+  /* ========== BUTTONS ========== */
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const service = this.getAttribute('data-service') || 'Service';
+      showToast(service);
+      this.style.transform = 'scale(0.95)';
+      setTimeout(() => { this.style.transform = ''; }, 150);
+    });
+  });
+
+  /* ========== SCROLL REVEAL ========== */
+  const revealElements = document.querySelectorAll('.service-card');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealElements.forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+
+  setTimeout(() => {
+    revealElements.forEach(el => {
+      el.style.animationPlayState = 'running';
+    });
+  }, 800);
+
+  /* ========== CARD HOVER TILT ========== */
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -2;
+      const rotateY = ((x - centerX) / centerX) * 2;
+      card.style.transform = `translateY(-8px) perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  console.log('%c📶 WiFi Installation Services', 'font-size: 20px; font-weight: bold; color: #0a2e5c;');
+  console.log('%cAll 6 services loaded with photos ✓', 'font-size: 14px; color: #00c853;');
+</script>
+</body>
+</html>

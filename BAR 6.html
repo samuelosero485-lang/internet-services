@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services Gallery · 5 Images Per Category</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0b1a2e 0%, #1a365d 100%);
+      padding: 30px 20px;
+    }
+
+    /* ---------- PAGE TITLE ---------- */
+    .page-title {
+      text-align: center;
+      margin-bottom: 26px;
+      color: #fff;
+    }
+
+    .page-title h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #90e0ef);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .page-title p {
+      color: #a0c4e0;
+      font-size: 1rem;
+    }
+
+    /* ---------- CATEGORY TABS ---------- */
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      max-width: 1000px;
+    }
+
+    .tab-btn {
+      padding: 10px 22px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(144, 224, 239, 0.4);
+      background: rgba(255, 255, 255, 0.06);
+      color: #cfe8f5;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .tab-btn:hover {
+      background: rgba(0, 180, 216, 0.25);
+      transform: translateY(-2px);
+      color: #fff;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      color: #fff;
+      border-color: #00b4d8;
+      box-shadow: 0 8px 22px rgba(0, 180, 216, 0.45);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- SLIDER ---------- */
+    .slider {
+      position: relative;
+      width: 100%;
+      max-width: 950px;
+      height: 520px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+      border: 3px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ---------- SLIDE ---------- */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transform: scale(1.06);
+      transition: opacity 1.1s ease-in-out, transform 1.1s ease-in-out;
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+      z-index: 1;
+    }
+
+    .slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+    }
+
+    /* ---------- CAPTION ---------- */
+    .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px 42px;
+      z-index: 3;
+      color: #fff;
+      transform: translateY(24px);
+      opacity: 0;
+      transition: all 0.8s ease 0.25s;
+    }
+
+    .slide.active .caption {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .service-tag {
+      display: inline-block;
+      background: rgba(0, 180, 216, 0.9);
+      color: #fff;
+      padding: 5px 16px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 15px rgba(0, 180, 216, 0.4);
+    }
+
+    .caption h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      background: linear-gradient(135deg, #ffffff, #90e0ef);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .caption p {
+      font-size: 0.98rem;
+      opacity: 0.9;
+      max-width: 600px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ---------- ARROWS ---------- */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 4;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    .arrow:hover {
+      background: rgba(0, 180, 216, 0.65);
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 0 25px rgba(0, 180, 216, 0.5);
+    }
+
+    .arrow.prev { left: 22px; }
+    .arrow.next { right: 22px; }
+
+    /* ---------- DOTS ---------- */
+    .dots {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 4;
+    }
+
+    .dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot:hover {
+      background: rgba(255, 255, 255, 0.7);
+      transform: scale(1.15);
+    }
+
+    .dot.active {
+      background: #00b4d8;
+      border-color: #00b4d8;
+      box-shadow: 0 0 15px rgba(0, 180, 216, 0.9);
+      transform: scale(1.25);
+    }
+
+    /* ---------- COUNTER ---------- */
+    .slide-counter {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 4;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      letter-spacing: 1px;
+    }
+
+    /* ---------- PROGRESS ---------- */
+    .progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #00b4d8, #90e0ef);
+      z-index: 4;
+      width: 0%;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 10px rgba(0, 180, 216, 0.6);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .slider { height: 430px; border-radius: 18px; }
+      .caption { padding: 22px 22px; }
+      .caption h2 { font-size: 1.45rem; }
+      .caption p { font-size: 0.85rem; }
+      .arrow { width: 42px; height: 42px; font-size: 1.1rem; }
+      .page-title h1 { font-size: 1.5rem; }
+      .tab-btn { padding: 8px 16px; font-size: 0.78rem; }
+    }
+
+    @media (max-width: 480px) {
+      .slider { height: 350px; border-radius: 16px; }
+      .caption { padding: 16px 18px; }
+      .caption h2 { font-size: 1.15rem; }
+      .caption p { font-size: 0.75rem; }
+      .service-tag { font-size: 0.65rem; padding: 3px 12px; }
+      .dot { width: 10px; height: 10px; }
+      .arrow { width: 36px; height: 36px; font-size: 0.9rem; }
+      .slide-counter { font-size: 0.72rem; padding: 4px 12px; top: 14px; right: 14px; }
+      .page-title h1 { font-size: 1.15rem; }
+      .page-title p { font-size: 0.8rem; }
+      .tab-btn { padding: 7px 13px; font-size: 0.72rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE TITLE -->
+  <div class="page-title">
+    <h1>OUR SERVICES</h1>
+    <p>Click a category below to view 5 images of that service</p>
+  </div>
+
+  <!-- CATEGORY TABS -->
+  <div class="category-tabs" id="categoryTabs">
+    <button class="tab-btn active" data-category="wifi">📶 WiFi Installation</button>
+    <button class="tab-btn" data-category="photocopy"> Computer Repair</button>
+    <button class="tab-btn" data-category="printing">🖨️ Printing</button>
+    <button class="tab-btn" data-category="lamination">🌐 Online services</button>
+    <button class="tab-btn" data-category="binding">📚 Binding</button>
+    <button class="tab-btn" data-category="online">📄 Photocopy</button>
+    <button class="tab-btn" data-category="email">✉️ Email & Typing</button>
+  </div>
+
+  <!-- SLIDER -->
+  <div class="slider" id="slider">
+    <div class="arrow prev" id="prevBtn">❮</div>
+    <div class="arrow next" id="nextBtn">❯</div>
+    <div class="dots" id="dotsContainer"></div>
+    <div class="slide-counter" id="slideCounter">1 / 5</div>
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <script>
+    /* ============================================================
+       CATEGORIES WITH 5 IMAGES EACH
+       ============================================================ */
+    const categories = {
+
+      wifi: {
+        tag: "WiFi Installation",
+        slides: [
+          { img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1200&q=80", title: "Home WiFi Setup", desc: "Complete router configuration and full house coverage." },
+          { img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80", title: "Office WiFi Network", desc: "Multi access point deployment for business environments." },
+          { img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&q=80", title: "Enterprise WiFi", desc: "Large scale coverage for hotels, schools and campuses." },
+          { img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80", title: "Outdoor WiFi", desc: "Weatherproof long range outdoor wireless solutions." },
+          { img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80", title: "Mesh WiFi System", desc: "No dead zones with seamless whole home mesh coverage." }
+        ]
+      },
+
+      photocopy: {
+        tag: "Photocopy",
+        slides: [
+          { img: "https://images.unsplash.com/photo-1562408590-e32931084e23?w=1200&q=80", title: "High-Speed Photocopy", desc: "Fast black and white copies for all document types." },
+          { img: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1200&q=80", title: "Colour Photocopy", desc: "Vibrant full colour copies for presentations and flyers." },
+          { img: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=1200&q=80", title: "ID & Certificate Copies", desc: "Crisp copies of ID cards, certificates and passports." },
+          { img: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=1200&q=80", title: "Bulk Photocopying", desc: "Large volume copying for schools, offices and events." },
+          { img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80", title: "Double-Sided Copies", desc: "Eco friendly duplex copying to save paper and cost." }
+        ]
+      },
+
+      printing: {
+        tag: "Printing",
+        slides: [
+          { img: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=1200&q=80", title: "Document Printing", desc: "Professional laser printing for all office documents." },
+          { img: "https://images.unsplash.com/photo-1562408590-e32931084e23?w=1200&q=80", title: "Photo Printing", desc: "High resolution photo printing on premium glossy paper." },
+          { img: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1200&q=80", title: "Banner Printing", desc: "Large format banners and posters for events and shops." },
+          { img: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=1200&q=80", title: "Business Cards", desc: "Premium business card printing with custom designs." },
+          { img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80", title: "Colour Printing", desc: "Full colour vibrant printing for all your needs." }
+        ]
+      },
+
+      lamination: {
+        tag: "Lamination",
+        slides: [
+          { img: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1200&q=80", title: "ID Card Lamination", desc: "Durable waterproof lamination for national IDs and cards." },
+          { img: "https://images.unsplash.com/photo-1562408590-e32931084e23?w=1200&q=80", title: "Certificate Lamination", desc: "Protect academic and professional certificates for years." },
+          { img: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=1200&q=80", title: "Photo Lamination", desc: "Preserve precious memories with glossy photo lamination." },
+          { img: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=1200&q=80", title: "Document Lamination", desc: "Protect important documents from wear, tear and water." },
+          { img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80", title: "Matte & Glossy Finish", desc: "Choose between elegant matte or shiny glossy finishes." }
+        ]
+      },
+
+      binding: {
+        tag: "Binding",
+        slides: [
+          { img: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=1200&q=80", title: "Spiral Binding", desc: "Flexible spiral binding for reports, notes and manuals." },
+          { img: "https://images.unsplash.com/photo-1562408590-e32931084e23?w=1200&q=80", title: "Comb Binding", desc: "Professional comb binding for corporate documents." },
+          { img: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=1200&q=80", title: "Thermal Binding", desc: "Clean thermal binding perfect for formal presentations." },
+          { img: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1200&q=80", title: "Perfect Binding", desc: "Book style perfect binding for theses and dissertations." },
+          { img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80", title: "Custom Cover Binding", desc: "Personalised covers and designs for a unique finish." }
+        ]
+      },
+
+      online: {
+        tag: "Online Services",
+        slides: [
+          { img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80", title: "KRA Tax Services", desc: "Tax returns, PIN registration and KRA portal support." },
+          { img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80", title: "HELB Loan Application", desc: "Fast HELB loan application and account management." },
+          { img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80", title: "eCitizen Services", desc: "All government services through the eCitizen portal." },
+          { img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&q=80", title: "NTSA Services", desc: "Driving licence, vehicle transfer and NTSA applications." },
+          { img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80", title: "Online Applications", desc: "Job applications, registrations and all online forms." }
+        ]
+      },
+
+      email: {
+        tag: "Email & Typing",
+        slides: [
+          { img: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=1200&q=80", title: "Email Creation", desc: "Create Gmail, Yahoo and professional email accounts." },
+          { img: "https://images.unsplash.com/photo-1562408590-e32931084e23?w=1200&q=80", title: "Email Sending", desc: "Send and receive emails with attachments securely." },
+          { img: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1200&q=80", title: "Document Typing", desc: "Fast and accurate typing for all types of documents." },
+          { img: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=1200&q=80", title: "Scanning Services", desc: "High quality document scanning and digital conversion." },
+          { img: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=1200&q=80", title: "CV & Cover Letters", desc: "Professional CV writing and job application letters." }
+        ]
+      }
+
+    };
+
+    /* ============================================================
+       STATE
+       ============================================================ */
+    const SLIDE_DURATION = 4000;
+    const slider = document.getElementById('slider');
+    const dotsContainer = document.getElementById('dotsContainer');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressBar = document.getElementById('progressBar');
+    const tabButtons = document.querySelectorAll('.tab-btn');
+
+    let currentCategory = 'wifi';
+    let currentIndex = 0;
+    let autoTimer = null;
+    let progressTimer = null;
+    let progressStart = 0;
+    let slides = [];
+
+    /* ============================================================
+       BUILD SLIDES FOR A CATEGORY
+       ============================================================ */
+    function buildSlides(categoryKey) {
+      // Remove any existing slides (keep arrows, dots, counter, progress)
+      const oldSlides = slider.querySelectorAll('.slide');
+      oldSlides.forEach(s => s.remove());
+
+      const data = categories[categoryKey];
+      const fragment = document.createDocumentFragment();
+
+      data.slides.forEach((slide, i) => {
+        const div = document.createElement('div');
+        div.className = 'slide' + (i === 0 ? ' active' : '');
+        div.style.backgroundImage = `url('${slide.img}')`;
+        div.innerHTML = `
+          <div class="caption">
+            <span class="service-tag">${data.tag}</span>
+            <h2>${slide.title}</h2>
+            <p>${slide.desc}</p>
+          </div>
+        `;
+        fragment.appendChild(div);
+      });
+
+      // Insert slides before the arrows
+      slider.insertBefore(fragment, prevBtn);
+
+      slides = slider.querySelectorAll('.slide');
+      currentIndex = 0;
+
+      buildDots();
+      updateCounter();
+      resetAutoPlay();
+    }
+
+    /* ============================================================
+       BUILD DOTS
+       ============================================================ */
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    /* ============================================================
+       GO TO SLIDE
+       ============================================================ */
+    function goToSlide(index) {
+      const dots = dotsContainer.querySelectorAll('.dot');
+
+      if (index < 0) index = slides.length - 1;
+      if (index >= slides.length) index = 0;
+
+      slides[currentIndex].classList.remove('active');
+      if (dots[currentIndex]) dots[currentIndex].classList.remove('active');
+
+      currentIndex = index;
+
+      slides[currentIndex].classList.add('active');
+      if (dots[currentIndex]) dots[currentIndex].classList.add('active');
+
+      updateCounter();
+      resetAutoPlay();
+    }
+
+    function nextSlide() { goToSlide(currentIndex + 1); }
+    function prevSlide() { goToSlide(currentIndex - 1); }
+
+    function updateCounter() {
+      slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+    }
+
+    /* ============================================================
+       AUTO PLAY + PROGRESS
+       ============================================================ */
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoTimer = setInterval(nextSlide, SLIDE_DURATION);
+      startProgress();
+    }
+
+    function stopAutoPlay() {
+      if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+      stopProgress();
+    }
+
+    function resetAutoPlay() {
+      stopAutoPlay();
+      startAutoPlay();
+    }
+
+    function startProgress() {
+      stopProgress();
+      progressStart = Date.now();
+      progressBar.style.width = '0%';
+      progressTimer = setInterval(() => {
+        const elapsed = Date.now() - progressStart;
+        const percent = Math.min((elapsed / SLIDE_DURATION) * 100, 100);
+        progressBar.style.width = percent + '%';
+      }, 30);
+    }
+
+    function stopProgress() {
+      if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+    }
+
+    /* ============================================================
+       EVENTS
+       ============================================================ */
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    slider.addEventListener('mouseenter', stopAutoPlay);
+    slider.addEventListener('mouseleave', startAutoPlay);
+
+    // Touch swipe
+    let touchStartX = 0, touchEndX = 0;
+    slider.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    slider.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        diff > 0 ? nextSlide() : prevSlide();
+      }
+    }, { passive: true });
+
+    // Category tabs
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.getAttribute('data-category');
+        buildSlides(currentCategory);
+      });
+    });
+
+    /* ============================================================
+       INIT
+       ============================================================ */
+    buildSlides('wifi');
+
+    console.log('%c🖼️ Multi-Category Slider Loaded', 'font-size: 16px; font-weight: bold; color: #00b4d8;');
+    console.log('%c7 categories · 5 images each = 35 total slides', 'font-size: 12px; color: #90e0ef;');
+  </script>
+</body>
+</html>
